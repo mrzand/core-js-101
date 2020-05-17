@@ -172,8 +172,10 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const result = Math.sqrt((circle.center.x - point.x) ** 2 + (circle.center.y - point.y) ** 2);
+  const circleRadius = circle.radius;
+  return result < circleRadius;
 }
 
 
@@ -215,8 +217,14 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const min = Math.min(a, b);
+  const max = Math.max(a, b);
+  const start = (isStartIncluded) ? '[' : '(';
+  const end = (isEndIncluded) ? ']' : ')';
+  const resultFirst = start + min;
+  const resultSecond = max + end;
+  return `${resultFirst}, ${resultSecond}`;
 }
 
 
@@ -366,8 +374,16 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  const resultArray = [];
+  let currentNumber = num;
+  while (currentNumber >= n) {
+    resultArray.push(currentNumber % n);
+    currentNumber = Math.floor(currentNumber / n);
+  }
+  resultArray.push(currentNumber % n);
+  const result = resultArray.reverse().join('');
+  return result;
 }
 
 
